@@ -1,0 +1,12 @@
+.button_warp {
+    margin-top: 27px;
+}
+.icon_wrap {
+    i {
+        cursor: pointer;
+        margin-right: 10px;
+        &:last-child {
+            margin-right: 0px;
+        }
+    }
+}

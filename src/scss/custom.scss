@@ -1,0 +1,54 @@
+.header_wrap {
+    margin: 20px 0px 22px;
+}
+
+.footer {
+    font-size: 14px;
+    border: transparent;
+    background: transparent;
+}
+
+
+.card_wrap {
+    padding: 25px;
+    border: 1px solid #f4f4f4;
+    box-shadow: 0 5px 10px rgba(51,66,87,.05);
+    border-radius: 10px;
+    label {
+        font-size: 15px;
+        font-weight: 400;
+        margin-bottom: 4px;
+    }
+    input {
+        color: #334257;
+        width: 100%;
+        padding: 6px 14px;
+        border-radius: 0.3125rem;
+        border: 0.0625rem solid #e7eaf3;
+    }
+}
+
+.button_warp {
+    button {
+        width: 100px;
+        padding: 6px 15px;
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: .3px;
+        border: 1px solid;
+        border-radius: 5px;
+        text-transform: capitalize;
+        margin-right: 15px;
+        &:last-child {
+            margin-right: 0px;
+        }
+    }
+    .reset_wrap {
+        background: #f4f5f7;
+        border-color: #f4f5f7;   
+    }
+    .submit_warp {
+        background: #fac564;
+        border-color: #fac564;
+    }
+}
