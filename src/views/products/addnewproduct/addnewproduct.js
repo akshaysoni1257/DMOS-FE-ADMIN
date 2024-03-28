@@ -23,7 +23,7 @@ const AddNewProduct = () => {
     e.preventDefault()
     try {
       await axios.post('/addProducts', productData)
-      // add toaster, message alert or anything
+      // add toaster, message alert or anything xyz
       console.log('product added successfully')
     } catch (error) {
       console.log(error)
