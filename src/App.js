@@ -4,7 +4,8 @@ import './scss/style.scss'
 import '@progress/kendo-theme-default/dist/all.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
-
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 const loading = (
   <div className="pt-3 text-center">
@@ -25,6 +26,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
+      <ToastContainer />
         <Suspense fallback={loading}>
           <Routes>
             <Route exact path="/" name="Login" element={<Login />} />

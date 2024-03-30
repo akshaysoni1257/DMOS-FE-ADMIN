@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate} from "react-router-dom";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../login/login.scss'
 import { TextBox } from "@progress/kendo-react-inputs";
 import { Label } from "@progress/kendo-react-labels";
@@ -31,10 +32,32 @@ const Login = () => {
       const data = res.data;
       const token = data?.data?.token;
       navigate('/admindashboard');
+      toast.success('success', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+        });
       localStorage.setItem('token', token);
-      setSuccessMessage(response.data.message);
+      // setSuccessMessage(response.data.message);
     } catch (error) {
-      setErromsg(error?.response?.data?.message)
+      toast.error(error?.response?.data?.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        // transition: Bounce,
+        });
+      // setErromsg(error?.response?.data?.message)
     }
     
 
@@ -53,8 +76,11 @@ const Login = () => {
     // }
   }
 
+
   return (
     <>
+   <ToastContainer />
+{/* Same as */}
       <div className='login_wrap'>
         <div className='login_details'>
           <div className='login_head'>

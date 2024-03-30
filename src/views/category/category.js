@@ -18,30 +18,62 @@ import axios from 'axios';
 
 
 const Category = () => { 
-
+  const [ids, setid] = useState([])
+  const delteid = (id) =>{
+    if(ids.includes(id))
+    {
+      setid(ids.filter(x=>x.id != id))
+    }
+    else{
+      setid([...ids,id])
+    }
+  }
   const [value, setValue] = useState({name:''})
   const [category, setCategory] = useState([]);
   const [showCategory, setShowCategory] = useState([]);
+  const [editedData, setEditedData] = useState(null);
+  const [editButton, setEditButton] = useState(false);
 
+console.log('apiid',editedData);
 
   const handleChange = (e) => {
     setValue({ ...value, [e.target.name]: e.target.value });
   }
 
   const handleClick = async () => {
-    try {
-      const gettoken = localStorage.getItem('token')
-    const response = await axios.post(`http://localhost:3000/admin/category/addCategories`, value, {
-      headers: {
-        'Authorization': `Bearer ${gettoken}`
+    if (editButton) {
+      try {
+        const gettoken = localStorage.getItem('token');
+        const response = await axios.post(`localhost:3000/admin/category/updateCategories/${editedData}`, value , {
+          headers: {
+            'Authorization':`Bearer ${gettoken}`
+          }
+        });
+          if (response.data) {
+              const updateData = showCategory.map((prod) => prod._id === editedData ? {...prod, value} : prod);
+              setCategory(updateData);
+              setValue({name: ''});
+              setEditButton(false);
+          }
+      } catch (error) {
+        console.log('error',error);
       }
-    });
-    const data = response.data;
-    if (response.data) {
-      setCategory(data);
-    }
-    } catch (error) {
-      console.log(category);
+    } else {
+        try {
+          const gettoken = localStorage.getItem('token')
+        const response = await axios.post(`http://localhost:3000/admin/category/addCategories`, value, {
+          headers: {
+            'Authorization': `Bearer ${gettoken}`
+          }
+        });
+        const data = response.data;
+        if (response.data) {
+          setCategory(data);
+          showData();
+        }
+        } catch (error) {
+          console.log(error);
+        }
     }
   }
 
@@ -49,25 +81,40 @@ const Category = () => {
     console.log('delete', _id);
     try {
       const gettoken = localStorage.getItem('token')
-      const res = await axios.delete(`http://localhost:3000/admin/category/deleteCategories${_id}`, {
+      console.log(ids,"222")
+      const res = await axios.delete(`http://localhost:3000/admin/category/deleteCategories`, {
+        data: {
+          id:ids // Sending _id in the request body
+       },
+        // id:ids,      
         headers: {
           'Authorization': `Bearer ${gettoken}`
-        }
+        },
       });
       if (res.data) {
-        console.log('delete ==>', res.data);
-        // const deletedData = showCategory.filter((item) => item._id !== _id)
-        // console.log('data delete',deletedData);
+        const deletedData = showCategory.filter((item) => item._id !== _id)
+        showData();
+        console.log('data delete',deletedData);
       }
     } catch (error) {
       console.log(category);
+
     }
+  }
+
+
+  const handleEdit = (_id) => {
+    const exisingId = showCategory.find((item) => item._id === _id)
+    console.log('exisingId', exisingId);
+    setValue(exisingId);
+    setEditedData(_id);
+    setEditButton(true);
   }
 
   const showData = async () => {
     try {
       const gettoken = localStorage.getItem('token')
-      const res = await axios.get(`http://localhost:3000/admin/category/getCategories?page=1&limit=2`, {
+      const res = await axios.get(`http://localhost:3000/admin/category/getCategories?page=1&limit=20`, {
         headers: {
           'Authorization': `Bearer ${gettoken}`
         }
@@ -100,7 +147,7 @@ const Category = () => {
             </div>
             <div className='col-md-2'>
               <div className='button_warp'>
-                <button className='submit_warp' onClick={handleClick}> Submit </button>
+                <button className='submit_warp' onClick={handleClick}> {editButton ? 'update': 'Submit'}  </button>
               </div>
             </div>
           </div>
@@ -129,21 +176,12 @@ const Category = () => {
               <tr key={id}>
                 <td>{id +1}</td>
                 <td>{item.name}</td>
-                <td> <button onClick={() => handleDelete(item._id)}>delete</button>   </td>
+                <input type="checkbox" checked= {ids.includes(item._id)} onClick={()=>delteid(item._id)}/>
+                <td> <button onClick={() => handleDelete(item._id)}>delete</button> 
+                     <button onClick={() => handleEdit(item._id)}> Edit </button> 
+                </td>
               </tr>
               ))}
-              {/* <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Thornton</td>
-                <td>Larry the Bird</td>
-                <td>@twitter</td>
-              </tr> */}
             </tbody>
           </Table>
 

@@ -3,6 +3,7 @@ import '../addnewproduct/addnewproduct.scss'
 import { Label } from '@progress/kendo-react-labels'
 import { TextBox } from '@progress/kendo-react-inputs'
 import axios from 'axios'
+import { useState } from 'react'
 
 const AddNewProduct = () => {
   const [productData, setProductData] = useState({
@@ -15,16 +16,28 @@ const AddNewProduct = () => {
 
   //Handle input data and save in state
   const handleInput = (e) => {
-    e.preventDefault()
-    setProductData({ ...productData, [e.target.name]: e.target.value })
+    // e.preventDefault()
+    const {name, value} = e.target;
+    const convert = name === 'quantity' || name === 'price' ? parseInt(value) : value
+     setProductData({ ...productData, [name]: convert })
   }
-  const { name, category, quantity, description, price } = productData
+  // const { name, category, quantity, description, price } = productData
   const addProduct = async (e) => {
-    e.preventDefault()
+    // e.preventDefault()
     try {
-      await axios.post('/addProducts', productData)
-      // add toaster, message alert or anything xyz
-      console.log('product added successfully')
+      const gettoken = localStorage.getItem('token')
+      const response = await axios.post(`/addProducts`, productData, {
+        headers: {
+          'Authorization': `Bearer ${gettoken}`
+        }
+      });
+      const data = response.data;
+      if (response.data) {
+        setProductData(data);
+        showData();
+      }
+      // add toaster, message alert or anything
+      console.log(res.data,"78787878788")
     } catch (error) {
       console.log(error)
     }
@@ -42,7 +55,7 @@ const AddNewProduct = () => {
               <div className="product_info">
                 <Label> Product Name </Label> <br />
                 <TextBox
-                  value={name}
+                  value={productData.name}
                   name="name"
                   onChange={(e) => handleInput(e)}
                   placeholder="Product Name"
@@ -53,7 +66,7 @@ const AddNewProduct = () => {
               <div className="product_info">
                 <Label> Category </Label> <br />
                 <TextBox
-                  value={category}
+                  value={productData.category}
                   name="category"
                   onChange={(e) => handleInput(e)}
                   placeholder="Category"
@@ -64,7 +77,7 @@ const AddNewProduct = () => {
               <div className="product_info">
                 <Label> Quantity </Label> <br />
                 <TextBox
-                  value={quantity}
+                  value={productData.quantity}
                   name="quantity"
                   onChange={(e) => handleInput(e)}
                   placeholder="Price"
@@ -75,7 +88,7 @@ const AddNewProduct = () => {
               <div className="product_info">
                 <Label> Description </Label> <br />
                 <TextBox
-                  value={description}
+                  value={productData.description}
                   name="description"
                   onChange={(e) => handleInput(e)}
                   placeholder="Price"
@@ -86,7 +99,7 @@ const AddNewProduct = () => {
               <div className="product_info">
                 <Label> Price </Label> <br />
                 <TextBox
-                  value={price}
+                  value={productData.price}
                   name="price"
                   onChange={(e) => handleInput(e)}
                   placeholder="Price"
@@ -110,7 +123,7 @@ const AddNewProduct = () => {
                   {' '}
                   Reset{' '}
                 </button>
-                <button onClick={(e) => addProduct(e)} className="submit_warp">
+                <button onClick={() => addProduct()} className="submit_warp">
                   {' '}
                   Submit{' '}
                 </button>
