@@ -7,14 +7,6 @@ import products from "../category/data.json";
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
 
-// const cellWithBackGround = (props) => {
-//   return (
-//     <td className='icon_wrap'>
-//       <i class="fa fa-pencil-square-o"></i>
-//       <i class="fa fa-trash-o"></i>
-//     </td>
-//   );
-// };
 
 
 const Category = () => { 
@@ -22,7 +14,7 @@ const Category = () => {
   const delteid = (id) =>{
     if(ids.includes(id))
     {
-      setid(ids.filter(x=>x.id != id))
+      setid(ids.filter(x=>x != id))
     }
     else{
       setid([...ids,id])
@@ -44,7 +36,7 @@ console.log('apiid',editedData);
     if (editButton) {
       try {
         const gettoken = localStorage.getItem('token');
-        const response = await axios.post(`localhost:3000/admin/category/updateCategories/${editedData}`, value , {
+        const response = await axios.put(`http://localhost:3000/admin/category/updateCategories/${editedData}`, value , {
           headers: {
             'Authorization':`Bearer ${gettoken}`
           }
@@ -53,6 +45,7 @@ console.log('apiid',editedData);
               const updateData = showCategory.map((prod) => prod._id === editedData ? {...prod, value} : prod);
               setCategory(updateData);
               setValue({name: ''});
+              showData();
               setEditButton(false);
           }
       } catch (error) {
@@ -78,14 +71,13 @@ console.log('apiid',editedData);
   }
 
   const handleDelete = async (_id) => {
-    console.log('delete', _id);
     try {
+      let body= !ids.length ?{ id:[_id]}:{id:ids}
       const gettoken = localStorage.getItem('token')
       console.log(ids,"222")
       const res = await axios.delete(`http://localhost:3000/admin/category/deleteCategories`, {
-        data: {
-          id:ids // Sending _id in the request body
-       },
+        data: body // Sending _id in the request body
+       ,
         // id:ids,      
         headers: {
           'Authorization': `Bearer ${gettoken}`
@@ -94,6 +86,7 @@ console.log('apiid',editedData);
       if (res.data) {
         const deletedData = showCategory.filter((item) => item._id !== _id)
         showData();
+        setid([])
         console.log('data delete',deletedData);
       }
     } catch (error) {
@@ -165,18 +158,18 @@ console.log('apiid',editedData);
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
+                <th>no.</th>
+                <th></th>
+                <th>category Name</th>
+                <th>action</th>
               </tr>
             </thead>
             <tbody>
               {showCategory.map((item, id) => (
               <tr key={id}>
                 <td>{id +1}</td>
-                <td>{item.name}</td>
                 <input type="checkbox" checked= {ids.includes(item._id)} onClick={()=>delteid(item._id)}/>
+                <td>{item.name}</td>
                 <td> <button onClick={() => handleDelete(item._id)}>delete</button> 
                      <button onClick={() => handleEdit(item._id)}> Edit </button> 
                 </td>

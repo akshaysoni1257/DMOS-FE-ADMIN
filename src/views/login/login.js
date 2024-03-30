@@ -31,6 +31,7 @@ const Login = () => {
       const res = await axios.post(`http://localhost:3000/user/adminLogin`, login);
       const data = res.data;
       const token = data?.data?.token;
+      localStorage.setItem('token', token);
       navigate('/admindashboard');
       toast.success('success', {
         position: "top-right",
@@ -43,7 +44,6 @@ const Login = () => {
         theme: "light",
         transition: Bounce,
         });
-      localStorage.setItem('token', token);
       // setSuccessMessage(response.data.message);
     } catch (error) {
       toast.error(error?.response?.data?.message, {
