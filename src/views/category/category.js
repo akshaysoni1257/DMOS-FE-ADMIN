@@ -159,16 +159,15 @@ console.log('apiid',editedData);
             <thead>
               <tr>
                 <th>no.</th>
-                <th></th>
-                <th>category Name</th>
-                <th>action</th>
+                <th>Category Name</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {showCategory.map((item, id) => (
               <tr key={id}>
                 <td>{id +1}</td>
-                <input type="checkbox" checked= {ids.includes(item._id)} onClick={()=>delteid(item._id)}/>
+                {/* <input type="checkbox" checked= {ids.includes(item._id)} onClick={()=>delteid(item._id)}/> */}
                 <td>{item.name}</td>
                 <td> <button onClick={() => handleDelete(item._id)}>delete</button> 
                      <button onClick={() => handleEdit(item._id)}> Edit </button> 

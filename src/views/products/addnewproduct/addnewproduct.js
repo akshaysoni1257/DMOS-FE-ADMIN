@@ -5,8 +5,10 @@ import { TextBox } from '@progress/kendo-react-inputs'
 import axios from 'axios'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const AddNewProduct = () => {
+  const navigate = useNavigate()
   const [showCategory, setShowCategory] = useState([])
   const [productData, setProductData] = useState({
     name: '',
@@ -44,8 +46,8 @@ const AddNewProduct = () => {
       )
       const data = response.data
       if (response.data) {
-        setProductData(data)
-        showData()
+        // setProductData(data)
+        navigate("/products")
       }
     } catch (error) {
       console.log(error)
@@ -69,6 +71,7 @@ const AddNewProduct = () => {
       console.log('error', error)
     }
   }
+  
   return (
     <>
       <div className="header_wrap">
@@ -92,12 +95,12 @@ const AddNewProduct = () => {
             <div className="col-md-3">
               <div className="product_info">
                 <Label> Category </Label> <br />
-                <TextBox
+                {/* <TextBox
                   value={productData.category}
                   name="category"
                   onChange={(e) => handleInput(e)}
                   placeholder="Category"
-                />
+                /> */}
                 <select name='category' onChange={(e=>handleInput(e))}>
                   {showCategory?.map((category) => {
                     return <option value={category._id}>{category.name}</option>

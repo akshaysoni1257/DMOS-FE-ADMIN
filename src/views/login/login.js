@@ -15,8 +15,11 @@ const Login = () => {
     email: "",
     password: ""
   });
+
   const [erromsg, setErromsg] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+  const [validError, setValidError] = useState(null);
+
 
   const eventInputChange = (event) => {
     setLogin({
@@ -27,23 +30,38 @@ const Login = () => {
 
   const eventFormSubmit = async (event) =>{
     event.preventDefault();
+
+    if (!login.email ) {
+      setValidError('Please enter your email address');
+      return
+    } if (!login.password){
+      setValidError('Please enter your password');
+      return
+    }
+
     try {
-      const res = await axios.post(`http://localhost:3000/user/adminLogin`, login);
-      const data = res.data;
-      const token = data?.data?.token;
-      localStorage.setItem('token', token);
-      navigate('/admindashboard');
-      toast.success('success', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-        });
+      await axios.post(`http://localhost:3000/user/adminLogin`, login).then((res) => {
+        if(res.status===200) {
+          const data = res.data;
+          const token = data?.data?.token;
+          localStorage.setItem('token', token);
+
+          toast.success('success', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          setTimeout(() => {
+            navigate('/admindashboard');
+          },500)
+
+        }
+      })
       // setSuccessMessage(response.data.message);
     } catch (error) {
       toast.error(error?.response?.data?.message, {
@@ -59,7 +77,16 @@ const Login = () => {
         });
       // setErromsg(error?.response?.data?.message)
     }
-    
+
+    // const handlelogin = async () => { 
+    //   if (!formData.first_name ) {
+    //     setValidError('first name required');
+    //     return
+    //   } if (!formData.last_name){
+    //         setValidError('Last name required');
+    //         return
+    //   } 
+    // }
 
     // const response = await fetch("http://localhost:3000/user/adminLogin", {
     //   method: "POST",
@@ -74,13 +101,12 @@ const Login = () => {
     // } else {
     //   console.log(json);
     // }
+
   }
 
 
   return (
     <>
-   <ToastContainer />
-{/* Same as */}
       <div className='login_wrap'>
         <div className='login_details'>
           <div className='login_head'>
@@ -93,19 +119,27 @@ const Login = () => {
               <div className='info_wrap'>
                 <Label> Email Address </Label> <br/>
                 <TextBox placeholder="email@gmail.com" name="email" value={login.email} onChange={eventInputChange} />
-                <p> Please Enter Email Address </p>
+                {/* <p> Please Enter Email Address </p> */}
+                <p className='error'> {validError ? 'Please enter your email address' : ''} </p>
               </div>
               <div className='info_wrap'>
                 <Label> Password </Label> <br/>
                 <TextBox placeholder="Password$123" name="password" value={login.password} onChange={eventInputChange} />
-                <p> Please Enter Email Password </p>
+                {/* <p> Please Enter Email Password </p> */}
+                <p className='error'> {validError ? 'Please enter your password' : ''} </p>
               </div>
             </div>
             <div className='login_btn'>
+              <a>
+                <button > Login </button>
+              </a>
+            </div>
+
+            {/* <div className='login_btn'>
               <a href='/dashboard'>
                 <button path='/dashboard'> Login </button>
               </a>
-            </div>
+            </div> */}
           </form>
           <div className='wrap_details'>
             <p> Don't have an account? <a href='/register'> Sign Up </a> </p>

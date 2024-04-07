@@ -44,9 +44,9 @@ const Register = () => {
     }
 
 
-    return ( 
+    return (
         <>
-       <div className='login_wrap'>
+            <div className='login_wrap'>
                 <div className='login_details'>
                     <div className='login_head'>
                         <h4> Sign Up </h4>
@@ -57,30 +57,31 @@ const Register = () => {
                         <div className='info_wrap'>
                             <Label> First Name </Label> <br />
                             <TextBox value={formData.first_name} name='first_name' onChange={handleOnChange} placeholder="First Name" />
-                            <p> {validError ? 'first name required' : ''} </p>
+                            <p className='error'> {validError ? 'Please enter your first name' : ''} </p>
                         </div>
                         <div className='info_wrap'>
                             <Label> Last Name </Label> <br />
                             <TextBox value={formData.last_name} name='last_name' onChange={handleOnChange} placeholder="Last Name" />
-                            <p> {validError ? 'Last name required' : ''} </p>
+                            <p className='error'> {validError ? 'Please enter your last name' : ''} </p>
                         </div>
                         <div className='info_wrap'>
                             <Label> Email Address </Label> <br />
                             <TextBox value={formData.email} name='email' onChange={handleOnChange} placeholder="email@gmail.com" />
-                            {/* <p> First Name </p> */}
+                            <p className='error'> {validError ? 'Please enter your email address' : ''} </p>
                         </div>
                         <div className='info_wrap'>
                             <Label> Password </Label> <br />
-                            <TextBox value={formData.password} name='password' onChange={handleOnChange} placeholder="Password$123" />
-                            {/* <p> First Name </p> */}
+                            <TextBox value={formData.password} name='password' onChange={handleOnChange} placeholder="Password@XYZ" />
+                            <p className='error'> {validError ? 'Please enter your password' : ''} </p>
                         </div>
                         <div className='info_wrap'>
-                            <Label> Phone </Label> <br />
-                            <TextBox value={formData.phone} name='phone' onChange={handleOnChange} placeholder="Password$123" />
+                            <Label> Phone Number </Label> <br />
+                            <TextBox value={formData.phone} name='phone' onChange={handleOnChange} placeholder="+91 XXXXX XXXXX" />
+                            <p className='error'> {validError ? 'Please enter your phone number Required' : ''} </p>
                         </div>
                     </div>
                     <div className='login_btn'>
-                        <a href='##' onClick={handleRegister}>
+                        <a onClick={handleRegister}>
                             <button type='submit'> Sign Up </button>
                         </a>
                     </div>

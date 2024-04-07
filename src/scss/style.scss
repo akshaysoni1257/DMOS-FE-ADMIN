@@ -15,12 +15,20 @@ $enable-rtl: true;
 // If you want to add custom CSS you can put it here.
 @import "custom";
 
-.k-grid {
-    .k-grid-aria-root { 
-        div {
-            &:nth-child(3) {
-                display: none;
-            }
-        }
-    }
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+// .k-grid {
+//     .k-grid-aria-root { 
+//         div {
+//             &:nth-child(3) {
+//                 display: none;
+//             }
+//         }
+//     }
+// }
+
+.error {
+    color: red;
+    margin: 0;
+    font-size: 13px;
 }
