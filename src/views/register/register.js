@@ -3,6 +3,8 @@ import '../register/register.scss'
 import { TextBox } from "@progress/kendo-react-inputs";
 import { Label } from "@progress/kendo-react-labels";
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => { 
@@ -31,14 +33,45 @@ const Register = () => {
         } else {
             try {
                 const res = await axios.post(`http://localhost:3000/user/adminregister`, formData);
-                const data = res.data;
-                const token = data.token;
-                localStorage.setItem('token', token);
-                navigate('/');
-                setSuccessMessage(response.data.message)
+                
+
+                if(res.status===200) {
+                    const data = res.data;
+                    const token = data.token;
+                    localStorage.setItem('token', token);
+                    toast.success('Registration successful', {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                        setTimeout(() => {
+                        navigate('/');
+                    },2000);
+
+                    // navigate('/');
+                    // setSuccessMessage(response.data.message)
+                }
+
+                
             } catch (error) {
-                console.log('error =>', error);
-                setErromsg(error?.response?.data?.message)
+                toast.error(error?.response?.data?.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    // transition: Bounce,
+                    });
+                // console.log('error =>', error);
+                // setErromsg(error?.response?.data?.message)
             }
         }
     }

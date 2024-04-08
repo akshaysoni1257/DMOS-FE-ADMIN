@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate} from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import '../login/login.scss'
+import '../login/login.scss';
 import { TextBox } from "@progress/kendo-react-inputs";
 import { Label } from "@progress/kendo-react-labels";
 import axios from 'axios';
@@ -41,12 +41,13 @@ const Login = () => {
 
     try {
       await axios.post(`http://localhost:3000/user/adminLogin`, login).then((res) => {
+        
         if(res.status===200) {
           const data = res.data;
           const token = data?.data?.token;
           localStorage.setItem('token', token);
 
-          toast.success('success', {
+          toast.success('Login successful', {
             position: "top-right",
             autoClose: 2000,
             hideProgressBar: false,
@@ -59,7 +60,6 @@ const Login = () => {
           setTimeout(() => {
             navigate('/admindashboard');
           },500)
-
         }
       })
       // setSuccessMessage(response.data.message);

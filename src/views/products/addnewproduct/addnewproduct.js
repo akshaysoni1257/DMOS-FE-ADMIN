@@ -16,7 +16,8 @@ const AddNewProduct = () => {
     quantity: '',
     description: '',
     price: '',
-  })
+  });
+  const [validError, setValidError] = useState(null);
 
   useEffect(() => {
     showData()
@@ -29,10 +30,17 @@ const AddNewProduct = () => {
     const { name, value } = e.target
     const convert = name === 'quantity' || name === 'price' ? parseInt(value) : value
     setProductData({ ...productData, [name]: convert })
+
   }
-  // const { name, category, quantity, description, price } = productData
   const addProduct = async (e) => {
-    // e.preventDefault()
+
+    // Add Product Start
+    if (!productData.name ) {
+      setValidError('Please enter your product name');
+      return
+    }
+    // Add Product End
+
     try {
       const gettoken = localStorage.getItem('token')
       const response = await axios.post(
@@ -90,22 +98,18 @@ const AddNewProduct = () => {
                   onChange={(e) => handleInput(e)}
                   placeholder="Product Name"
                 />
+                <p className='error'> {validError ? 'Please enter your product name' : ''} </p>
               </div>
             </div>
             <div className="col-md-3">
               <div className="product_info">
                 <Label> Category </Label> <br />
-                {/* <TextBox
-                  value={productData.category}
-                  name="category"
-                  onChange={(e) => handleInput(e)}
-                  placeholder="Category"
-                /> */}
                 <select name='category' onChange={(e=>handleInput(e))}>
                   {showCategory?.map((category) => {
                     return <option value={category._id}>{category.name}</option>
                   })}
                 </select>
+                <p className='error'> {validError ? 'Please select your category' : ''} </p>
               </div>
             </div>
             <div className="col-md-3">
@@ -117,6 +121,7 @@ const AddNewProduct = () => {
                   onChange={(e) => handleInput(e)}
                   placeholder="Price"
                 />
+                <p className='error'> {validError ? 'Please enter your quantity' : ''} </p>
               </div>
             </div>
             <div className="col-md-3">
@@ -126,8 +131,9 @@ const AddNewProduct = () => {
                   value={productData.description}
                   name="description"
                   onChange={(e) => handleInput(e)}
-                  placeholder="Price"
+                  placeholder="description"
                 />
+                <p className='error'> {validError ? 'Please enter product description' : ''} </p>
               </div>
             </div>
             <div className="col-md-3">
@@ -139,6 +145,7 @@ const AddNewProduct = () => {
                   onChange={(e) => handleInput(e)}
                   placeholder="Price"
                 />
+                <p className='error'> {validError ? 'Please enter product price' : ''} </p>
               </div>
             </div>
             <div className="col-md-4">

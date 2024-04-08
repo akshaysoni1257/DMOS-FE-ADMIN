@@ -79,26 +79,27 @@ const Products = () => {
 
 
   // Edit Start
+  const [editedData, setEditedData] = useState(null);
+  const [editButton, setEditButton] = useState(false);
   const [productData, setProductData] = useState({
     name: '',
     category: '',
     quantity: '',
     description: '',
     price: '',
-  })
-  const [editedData, setEditedData] = useState(null);
-  const [editButton, setEditButton] = useState(false);
+  });
+  
   // Popup Start
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
   const handleShow = () => {
     setShow(true);
+    
   }
   // Popup End
 
   const [showCategory, setShowCategory] = useState([]);
-  
   const handleEdit = (_id) => {
     setShow(true);
     const exisingId = products.find((item) => item._id === _id)
@@ -106,7 +107,7 @@ const Products = () => {
     setProductData(exisingId);
     setEditedData(_id);
     setEditButton(true);
-    addProduct()
+    addProduct();
   }
   useEffect(() => {
     showData()
@@ -115,12 +116,10 @@ const Products = () => {
 
   //Handle input data and save in state
   const handleInput = (e) => {
-    // e.preventDefault()
     setProductData({ ...productData, [e.target.name]: e.target.value })
   }
-  // const { name, category, quantity, description, price } = productData
+  
   const addProduct = async (e) => {
-
     if (editButton) {
       try {
         const gettoken = localStorage.getItem('token');
@@ -132,7 +131,6 @@ const Products = () => {
           if (response.data) {
               const updateData = products.map((prod) => prod._id === editedData ? {...prod, productData} : prod);
               setProductData(updateData);
-              // setValue({name: ''});
               getProducts();
               setShow(false);
               setEditButton(false);
@@ -142,7 +140,6 @@ const Products = () => {
       }
     }
     else {
-      // e.preventDefault()
       try {
         const gettoken = localStorage.getItem('token')
         const response = await axios.post(
@@ -156,15 +153,12 @@ const Products = () => {
         )
         const data = response.data
         if (response.data) {
-          // setProductData(data)
           navigate("/products")
         }
       } catch (error) {
         console.log(error)
       }
     }
-
-    
   }
 
   //Get Category
@@ -225,11 +219,7 @@ const Products = () => {
           </tbody>
         </Table>
 
-
-        {/* Model Popup Start */}
-        {/* <Button variant="primary" onClick={handleShow}>
-          Edit
-        </Button> */}
+        {/* Edit Model Popup Start */}
         <Modal
           show={show}
           onHide={handleClose}
@@ -306,7 +296,7 @@ const Products = () => {
             <Button variant="primary" onClick={addProduct}> Save </Button>
           </Modal.Footer>
         </Modal>
-        {/* Model Popup End */}
+        {/* Edit Model Popup End */}
 
 
       </>

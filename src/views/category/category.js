@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react'
 import '../category/category.scss'
 import { Label } from "@progress/kendo-react-labels";
 import { TextBox } from "@progress/kendo-react-inputs";
-import { Grid, GridColumn } from "@progress/kendo-react-grid";
-import products from "../category/data.json";
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
-
-
+import '../login/login.scss';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Category = () => { 
   const [ids, setid] = useState([])
@@ -20,11 +19,15 @@ const Category = () => {
       setid([...ids,id])
     }
   }
-  const [value, setValue] = useState({name:''})
-  const [category, setCategory] = useState([]);
+
+  const [value, setValue] = useState({
+    name:''
+  });
   const [showCategory, setShowCategory] = useState([]);
   const [editedData, setEditedData] = useState(null);
   const [editButton, setEditButton] = useState(false);
+  const [category, setCategory] = useState([]);
+  const [validError, setValidError] = useState(null);
 
 console.log('apiid',editedData);
 
@@ -33,9 +36,15 @@ console.log('apiid',editedData);
   }
 
   const handleClick = async () => {
+    // Category Validation Start
+    if (!value.name ) {
+      setValidError('Please enter your category name');
+      return
+    }
+    // Category Validation End
+    
     if (editButton) {
       try {
-        const gettoken = localStorage.getItem('token');
         const response = await axios.put(`http://localhost:3000/admin/category/updateCategories/${editedData}`, value , {
           headers: {
             'Authorization':`Bearer ${gettoken}`
@@ -54,16 +63,16 @@ console.log('apiid',editedData);
     } else {
         try {
           const gettoken = localStorage.getItem('token')
-        const response = await axios.post(`http://localhost:3000/admin/category/addCategories`, value, {
-          headers: {
-            'Authorization': `Bearer ${gettoken}`
+          const response = await axios.post(`http://localhost:3000/admin/category/addCategories`, value, {
+            headers: {
+              'Authorization': `Bearer ${gettoken}`
+            }
+          });
+          const data = response.data;
+          if (response.data) {
+            setCategory(data);
+            showData();
           }
-        });
-        const data = response.data;
-        if (response.data) {
-          setCategory(data);
-          showData();
-        }
         } catch (error) {
           console.log(error);
         }
@@ -75,14 +84,14 @@ console.log('apiid',editedData);
       let body= !ids.length ?{ id:[_id]}:{id:ids}
       const gettoken = localStorage.getItem('token')
       console.log(ids,"222")
-      const res = await axios.delete(`http://localhost:3000/admin/category/deleteCategories`, {
-        data: body // Sending _id in the request body
-       ,
-        // id:ids,      
+      // const res = await axios.delete(`http://localhost:3000/admin/category/deleteCategories`, {
+      await axios.delete(`http://localhost:3000/admin/category/deleteCategories`, {
+        data: body,  
         headers: {
           'Authorization': `Bearer ${gettoken}`
         },
       });
+
       if (res.data) {
         const deletedData = showCategory.filter((item) => item._id !== _id)
         showData();
@@ -91,7 +100,6 @@ console.log('apiid',editedData);
       }
     } catch (error) {
       console.log(category);
-
     }
   }
 
@@ -136,6 +144,7 @@ console.log('apiid',editedData);
               <div className='category_wrap'>
                 <Label> Category Name </Label> <br/>
                 <TextBox value={value.name} name='name' onChange={handleChange} placeholder="Category Name" />
+                <p className='error'> {validError ? 'Please enter your category name' : ''} </p>
               </div>
             </div>
             <div className='col-md-2'>
@@ -145,16 +154,6 @@ console.log('apiid',editedData);
             </div>
           </div>
           <div className='category_grid'>
-            {/* <Grid style={{ height: "400px" }} data={products}>
-              <GridColumn field="ProductID" title="ID" width="40px" />
-              <GridColumn field="CategoryName" title="Category Name" />
-              <GridColumn title="Action" cell={cellWithBackGround} />
-              
-              <GridColumn field="ProductName" title="Name" width="250px" />
-              <GridColumn field="UnitPrice" title="Price" />
-              <GridColumn field="UnitsInStock" title="In stock" />
-            </Grid> */}
-
           <Table striped bordered hover>
             <thead>
               <tr>
