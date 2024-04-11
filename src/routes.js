@@ -1,5 +1,6 @@
 import React from 'react'
 import AddQR from './views/qr/addqr'
+import GetAllQR from './views/qr/getAllQR'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Category = React.lazy(() => import('./views/category/category'))
@@ -18,6 +19,7 @@ const routes = [
   { path: '/category', name: 'Category', element: Category },
   { path: '/products', name: 'Products', element: Products },
   { path: '/qr/addqr', name: 'AddNewQR', element: AddQR },
+  { path: '/qr', name: 'GetAllQR', element: GetAllQR },
   { path: '/products/addnewproduct', name: 'AddNewProduct', element: AddNewProduct },
 
   // { path: '/login', name: 'Login', element: Dashboard },

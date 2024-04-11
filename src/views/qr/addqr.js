@@ -1,7 +1,7 @@
 const AddQR=()=>{
     return(
         <>
-        Add QR code
+             
         </>
     )
 }

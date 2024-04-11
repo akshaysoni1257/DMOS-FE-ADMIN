@@ -25,7 +25,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'QR code',
-    to: '/qr/addqr',
+    to: '/qr',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,//QR icon here
   },
 
