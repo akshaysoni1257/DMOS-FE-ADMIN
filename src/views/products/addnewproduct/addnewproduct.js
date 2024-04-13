@@ -18,6 +18,12 @@ const AddNewProduct = () => {
     price: '',
   });
   const [validError, setValidError] = useState(null);
+  const [image, setImage] = useState(null);
+  const [imageName, setImageName] = useState('');
+
+  const handleImageChange = (e) => {
+    setImage(e.target.value);
+  };
 
   useEffect(() => {
     showData()
@@ -44,8 +50,10 @@ const AddNewProduct = () => {
     try {
       const gettoken = localStorage.getItem('token')
       const response = await axios.post(
-        `http://localhost:3000/admin/product/addProducts`,
-        productData,
+        `http://localhost:3000/admin/product/addProducts`,{
+        ...productData,
+        img:image,
+        },
         {
           headers: {
             Authorization: `Bearer ${gettoken}`,
@@ -54,7 +62,7 @@ const AddNewProduct = () => {
       )
       const data = response.data
       if (response.data) {
-        // setProductData(data)
+  
         navigate("/products")
       }
     } catch (error) {
@@ -109,6 +117,13 @@ const AddNewProduct = () => {
                     return <option value={category._id}>{category.name}</option>
                   })}
                 </select>
+                <p className='error'> {validError ? 'Please select your category' : ''} </p>
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="product_info">
+                <Label> image </Label> <br />
+              <input type='text' value={image} onChange={handleImageChange} />
                 <p className='error'> {validError ? 'Please select your category' : ''} </p>
               </div>
             </div>
