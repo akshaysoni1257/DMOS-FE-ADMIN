@@ -148,59 +148,69 @@ const Category = () => {
 
   return (
     <>
-      <div className="header_wrap">
-        <h5> Category </h5>
-      </div>
-      <div className="card_wrap">
-        <div className="category_detail">
-          <div className="row">
-            <div className="col-md-3">
-              <div className="category_wrap">
-                <Label> Category Name </Label> <br />
-                <TextBox
-                  value={value.name}
-                  name="name"
-                  onChange={handleChange}
-                  placeholder="Category Name"
-                />
-                <p className="error"> {validError ? 'Please enter your category name' : ''} </p>
-              </div>
-            </div>
-            <div className="col-md-2">
-              <div className="button_warp">
-                <button className="submit_warp" onClick={handleClick}>
-                  {' '}
-                  {editButton ? 'update' : 'Submit'}{' '}
-                </button>
-              </div>
-            </div>
+
+      <div className='main_card'>
+          <div className='heading_wrap'>
+              <h5> Category </h5>
           </div>
-          <div className="category_grid">
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>no.</th>
-                  <th>Category Name</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {showCategory.map((item, id) => (
-                  <tr key={id}>
-                    <td>{id + 1}</td>
-                    {/* <input type="checkbox" checked= {ids.includes(item._id)} onClick={()=>delteid(item._id)}/> */}
-                    <td>{item.name}</td>
-                    <td>
+          <div className='card_details'>
+            <div className="category_detail">
+              <div className="row">
+                <div className="col-md-3">
+                  <div className="category_wrap">
+                    <Label> Category Name </Label> <br />
+                    <TextBox
+                      value={value.name}
+                      name="name"
+                      onChange={handleChange}
+                      placeholder="Category Name"
+                    />
+                    <p className="error"> {validError ? 'Please enter your category name' : ''} </p>
+                  </div>
+                </div>
+                <div className="col-md-2">
+                  <div className="button_warp">
+                    <button className="submit_warp" onClick={handleClick}>
                       {' '}
-                      <button onClick={() => handleDelete(item._id)}>delete</button>
-                      <button onClick={() => handleEdit(item._id)}> Edit </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+                      {editButton ? 'update' : 'Submit'}{' '}
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className="category_grid">
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th style={{width: "70px" }}>No.</th>
+                      <th>Category Name</th>
+                      <th style={{width: "200px" }}>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {showCategory.map((item, id) => (
+                      <tr key={id}>
+                        <td>{id + 1}</td>
+                        {/* <input type="checkbox" checked= {ids.includes(item._id)} onClick={()=>delteid(item._id)}/> */}
+                        <td>{item.name}</td>
+                        <td>
+                          {' '}
+                          <div className='icon_wrap'>
+                            <button className='edit' title='Edit' onClick={() => handleEdit(item._id)}> <i class="fa fa-edit"></i> Edit </button>
+                            <button className='delete' title='Delete' onClick={() => handleDelete(item._id)}> <i class="fa fa-trash"></i> Delete </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </div>
+            </div>
           </div>
-        </div>
+      </div>
+
+      
+      <div className="card_wrap">
+        
       </div>
 
       <ToastContainer />

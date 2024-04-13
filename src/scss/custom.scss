@@ -1,5 +1,9 @@
-.header_wrap {
-    margin: 20px 0px 22px;
+// .header_wrap {
+//     margin: 20px 0px 22px;
+// }
+
+.sidebar-brand {
+    background: #121618;
 }
 
 .footer {
@@ -9,22 +13,20 @@
 }
 
 
-.card_wrap {
-    padding: 25px;
-    border: 1px solid #f4f4f4;
-    box-shadow: 0 5px 10px rgba(51,66,87,.05);
-    border-radius: 10px;
+.card_details {
     label {
         font-size: 15px;
-        font-weight: 400;
+        font-weight: 500;
+        color: #4b5460;
         margin-bottom: 4px;
     }
     input {
         color: #334257;
+        height: 35px;
         width: 100%;
         padding: 6px 14px;
         border-radius: 0.3125rem;
-        border: 0.0625rem solid #e7eaf3;
+        padding-inline: 15px !important;
     }
 }
 
@@ -51,4 +53,23 @@
         background: #fac564;
         border-color: #fac564;
     }
+}
+
+.sidebar {
+    --cui-sidebar-bg: #121618ed;
+}
+.sidebar-nav .nav-link {
+    color: white;
+}
+.sidebar-nav .nav-icon {
+    color: white;
+}
+
+.sidebar-nav .nav-link.active {
+    color: #000000;
+    font-weight: 500;
+    background: #fac564;
+}
+.sidebar-nav .nav-link.active .nav-icon {
+    color: black;
 }

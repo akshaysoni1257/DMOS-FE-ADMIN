@@ -32,3 +32,80 @@ $enable-rtl: true;
     margin: 0;
     font-size: 13px;
 }
+
+
+.main_card {
+    margin-top: 20px;
+    box-shadow: rgb(216 217 220) 0px 5px 52px;
+    .heading_wrap {
+        h5 {
+            margin: 0;
+            color: black;
+            padding: 12px 20px;
+            background: #fac564;
+        }
+    }
+    .card_details {
+        padding: 28px 25px;
+    }
+}
+
+// Table Css Start
+
+.table {
+    --bs-table-border-color: #fac564 !important;
+    thead {
+        tr {
+            th {
+                color: #000000;
+                font-size: 15px;
+                font-weight: 500;
+                background: #ffe6b8;
+            }
+        }
+    }
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+    --bs-table-bg-type: white !important;
+}
+
+.table-striped>tbody>tr:nth-of-type(even)>* {
+    --bs-table-color-type: var(--bs-table-striped-color);
+    --bs-table-bg-type: rgb(255 230 184 / 25%) ;
+}
+.table-hover>tbody>tr:hover>* {
+    --bs-table-bg-state: rgb(255 230 184 / 25%) !important;
+}
+.table>:not(caption)>*>* {
+    padding: 10px 15px !important;
+}
+
+// Table Css End
+
+.icon_wrap {
+    button {
+        border-radius: 5px;
+        background: transparent;
+        margin-right: 10px;
+        &:last-child {
+            margin-right: 0px;
+        }
+        &.edit {
+            color: #0177cd;
+            border: 1px solid #0177cd;
+            &:hover {
+                color: #ffffff;
+                background: #0177cd;
+            }
+        }
+        &.delete {
+            color: #ff6d6d;
+            border: 1px solid #ff6d6d;
+            &:hover {
+                color: #ffffff;
+                background: #ff6d6d;
+            }
+        }
+    }
+}
