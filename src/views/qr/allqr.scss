@@ -1,0 +1,17 @@
+.qr_detail {
+    .row {
+        margin-bottom: 25px;
+        .button_warp {
+            margin-top: 27px;
+        }
+    }
+    .qr_grid {
+        max-width: 350px;
+        .table {
+            text-align: center;
+        }
+        img {
+            width: 100px;
+        }
+    }
+}

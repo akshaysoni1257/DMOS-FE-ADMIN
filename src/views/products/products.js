@@ -190,126 +190,144 @@ const Products = () => {
 
   return (
     <>
-      <div className="header_wrap">
-        <h5> Products </h5>
+
+      <div className='main_card'>
+        <div className='heading_wrap'>
+            <h5> Products </h5>
+        </div>
+        <div className='card_details'>
+          <div className='button_warp '>
+            <button className='submit_warp'> {' '} <i class="fa fa-plus"></i>
+              <Link to="/products/addnewproduct"> Add New Product </Link>{' '}
+            </button>
+          </div>
+
+          <div className='product_grid mt-4'>
+            <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th style={{width: "70px" }}>No.</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>quantity</th>
+                    <th style={{width: "200px" }}>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {products?.map((item, id) => (
+                    <tr key={id}>
+                      <td>{id + 1}</td>
+                      <td>{item.name}</td>
+                      <td>{item.price}</td>
+                      <td>{item.quantity}</td>
+                      {/* <input type="checkbox" checked= {ids.includes(item._id)} onClick={()=>delteid(item._id)}/> */}
+                      <td>
+
+                      <div className='icon_wrap'>
+                        <button className='edit' title='Edit' onClick={() => handleEdit(item._id)}> <i class="fa fa-edit"></i> Edit </button>
+                        <button className='delete' title='Delete' onClick={() => handleDelete(item._id)}> <i class="fa fa-trash"></i> Delete</button>
+                      </div>
+                        
+
+                        {/* <button onClick={() => handleDelete(item._id)}> delete</button> 
+                        <button onClick={() => handleEdit(item._id)}> Edit </button>  */}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+            </Table>
+          </div>
+          
+        </div>
       </div>
-      <div className="card_wrap">
-        <button>
-          {' '}
-          <Link to="/products/addnewproduct"> Add New Product </Link>{' '}
-        </button>
-      </div>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>No.</th>
-            <th>Product Name</th>
-            <th>Price</th>
-            <th>quantity</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products?.map((item, id) => (
-            <tr key={id}>
-              <td>{id + 1}</td>
-              <td>{item.name}</td>
-              <td>{item.price}</td>
-              <td>{item.quantity}</td>
-              {/* <input type="checkbox" checked= {ids.includes(item._id)} onClick={()=>delteid(item._id)}/> */}
-              <td>
-                <button onClick={() => handleDelete(item._id)}> delete</button>
-                <button onClick={() => handleEdit(item._id)}> Edit </button>
-                {/* <button onClick={() => handleDelete(item._id)}> delete</button> 
-                <button onClick={() => handleEdit(item._id)}> Edit </button>  */}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
 
       {/* Edit Model Popup Start */}
-      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Product</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="edit_details">
-            <div className="row">
-              <div className="col-md-6">
-                <div className="product_info">
-                  <Label> Product Name </Label>
-                  <TextBox
-                    value={productData.name}
-                    name="name"
-                    onChange={(e) => handleInput(e)}
-                    placeholder="Product Name"
-                  />
+      <div className='edit_details'>
+        <Modal show={show} onHide={handleClose} backdrop="static" keyboard={true}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Product</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="edit_details">
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="product_info">
+                    <Label> Product Name </Label>
+                    <TextBox
+                      value={productData.name}
+                      name="name"
+                      onChange={(e) => handleInput(e)}
+                      placeholder="Product Name"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="col-md-6">
-                <div className="product_info">
-                  <Label> Category </Label> <br />
-                  <select name="category" onChange={(e) => handleInput(e)}>
-                    {showCategory?.map((category) => {
-                      return (
-                        <option
-                          value={category._id}
-                          selected={productData.category == category._id}
-                        >
-                          {category.name}
-                        </option>
-                      )
-                    })}
-                  </select>
+                <div className="col-md-6">
+                  <div className="product_info">
+                    <Label> Category </Label> <br />
+                    <select name="category" onChange={(e) => handleInput(e)}>
+                      {showCategory?.map((category) => {
+                        return (
+                          <option
+                            value={category._id}
+                            selected={productData.category == category._id}
+                          >
+                            {category.name}
+                          </option>
+                        )
+                      })}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div className="col-md-6">
-                <div className="product_info">
-                  <Label> Quantity </Label>
-                  <TextBox
-                    value={productData.quantity}
-                    name="quantity"
-                    onChange={(e) => handleInput(e)}
-                    placeholder="Price"
-                  />
+                <div className="col-md-6">
+                  <div className="product_info">
+                    <Label> Quantity </Label>
+                    <TextBox
+                      value={productData.quantity}
+                      name="quantity"
+                      onChange={(e) => handleInput(e)}
+                      placeholder="Price"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="col-md-6">
-                <div className="product_info">
-                  <Label> Description </Label>
-                  <TextBox
-                    value={productData.description}
-                    name="description"
-                    onChange={(e) => handleInput(e)}
-                    placeholder="Price"
-                  />
+                <div className="col-md-6">
+                  <div className="product_info">
+                    <Label> Price </Label>
+                    <TextBox
+                      value={productData.price}
+                      name="price"
+                      onChange={(e) => handleInput(e)}
+                      placeholder="Price"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="col-md-6">
-                <div className="product_info">
-                  <Label> Price </Label>
-                  <TextBox
-                    value={productData.price}
-                    name="price"
-                    onChange={(e) => handleInput(e)}
-                    placeholder="Price"
-                  />
+                <div className="col-md-12">
+                  <div className="product_info">
+                    <Label> Description </Label>
+                    <TextBox
+                      value={productData.description}
+                      name="description"
+                      onChange={(e) => handleInput(e)}
+                      placeholder="Price"
+                    />
+                  </div>
                 </div>
+                
               </div>
             </div>
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button variant="primary" onClick={addProduct}>
-            {' '}
-            Save{' '}
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          </Modal.Body>
+          <Modal.Footer>
+            <div className='button_warp_wrap'>
+              <Button className='reset_wrap' onClick={handleClose}>
+                Cancel
+              </Button>
+              <Button className='submit_warp' onClick={addProduct}>
+                {' '}
+                Save{' '}
+              </Button>
+            </div>
+          </Modal.Footer>
+        </Modal>
+      </div>
       {/* Edit Model Popup End */}
 
       <ToastContainer />

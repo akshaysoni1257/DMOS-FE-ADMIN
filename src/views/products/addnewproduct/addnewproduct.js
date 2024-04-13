@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const AddNewProduct = () => {
   const navigate = useNavigate()
@@ -66,7 +67,7 @@ const AddNewProduct = () => {
     try {
       const gettoken = localStorage.getItem('token')
       const res = await axios.get(
-        `http://localhost:3000/admin/category/getCategories?page=1&limit=20`,
+        `http://localhost:3000/admin/category/getCategories?`,
         {
           headers: {
             Authorization: `Bearer ${gettoken}`,
@@ -82,98 +83,110 @@ const AddNewProduct = () => {
   
   return (
     <>
-      <div className="header_wrap">
-        <h5> Add New Product </h5>
-      </div>
 
-      <div className="card_wrap">
-        <div className="product_detail">
-          <div className="row">
-            <div className="col-md-3">
-              <div className="product_info">
-                <Label> Product Name </Label> <br />
-                <TextBox
-                  value={productData.name}
-                  name="name"
-                  onChange={(e) => handleInput(e)}
-                  placeholder="Product Name"
-                />
-                <p className='error'> {validError ? 'Please enter your product name' : ''} </p>
+      <div className='main_card'>
+        <div className='heading_wrap'>
+            <h5> <Link to="/products"> <i class="fa fa-angle-left"></i> </Link> Add New Product </h5>
+        </div>
+        <div className='card_details'>
+          <div className="product_detail">
+            <div className="row">
+              <div className="col-md-3">
+                <div className="product_info">
+                  <Label> Product Name </Label> <br />
+                  <TextBox
+                    value={productData.name}
+                    name="name"
+                    onChange={(e) => handleInput(e)}
+                    placeholder="Product Name"
+                  />
+                  <p className='error'> {validError ? 'Please enter your product name' : ''} </p>
+                </div>
               </div>
-            </div>
-            <div className="col-md-3">
-              <div className="product_info">
-                <Label> Category </Label> <br />
-                <select name='category' onChange={(e=>handleInput(e))}>
-                  {showCategory?.map((category) => {
-                    return <option value={category._id}>{category.name}</option>
-                  })}
-                </select>
-                <p className='error'> {validError ? 'Please select your category' : ''} </p>
+              <div className="col-md-3">
+                <div className="product_info">
+                  <Label> Image Link </Label> <br />
+                  <TextBox
+                    placeholder="Image Link"
+                  />
+                  <p className='error'> {validError ? 'Please enter your image link' : ''} </p>
+                </div>
               </div>
-            </div>
-            <div className="col-md-3">
-              <div className="product_info">
-                <Label> Quantity </Label> <br />
-                <TextBox
-                  value={productData.quantity}
-                  name="quantity"
-                  onChange={(e) => handleInput(e)}
-                  placeholder="Price"
-                />
-                <p className='error'> {validError ? 'Please enter your quantity' : ''} </p>
+              <div className="col-md-3">
+                <div className="product_info">
+                  <Label> Category </Label> <br />
+                  <select name='category' onChange={(e=>handleInput(e))}>
+                    {showCategory?.map((category) => {
+                      return <option value={category._id}>{category.name}</option>
+                    })}
+                  </select>
+                  <p className='error'> {validError ? 'Please select your category' : ''} </p>
+                </div>
               </div>
-            </div>
-            <div className="col-md-3">
-              <div className="product_info">
-                <Label> Description </Label> <br />
-                <TextBox
-                  value={productData.description}
-                  name="description"
-                  onChange={(e) => handleInput(e)}
-                  placeholder="description"
-                />
-                <p className='error'> {validError ? 'Please enter product description' : ''} </p>
+              <div className="col-md-3">
+                <div className="product_info">
+                  <Label> Quantity </Label> <br />
+                  <TextBox
+                    value={productData.quantity}
+                    name="quantity"
+                    onChange={(e) => handleInput(e)}
+                    placeholder="Price"
+                  />
+                  <p className='error'> {validError ? 'Please enter your quantity' : ''} </p>
+                </div>
               </div>
-            </div>
-            <div className="col-md-3">
-              <div className="product_info">
-                <Label> Price </Label> <br />
-                <TextBox
-                  value={productData.price}
-                  name="price"
-                  onChange={(e) => handleInput(e)}
-                  placeholder="Price"
-                />
-                <p className='error'> {validError ? 'Please enter product price' : ''} </p>
+              <div className="col-md-6">
+                <div className="product_info">
+                  <Label> Description </Label> <br />
+                  <TextBox
+                    value={productData.description}
+                    name="description"
+                    onChange={(e) => handleInput(e)}
+                    placeholder="description"
+                  />
+                  <p className='error'> {validError ? 'Please enter product description' : ''} </p>
+                </div>
               </div>
-            </div>
-            <div className="col-md-4">
-              <div className="button_warp">
-                <button
-                  className="reset_wrap"
-                  onClick={() =>
-                    setProductData({
-                      name: '',
-                      category: '',
-                      quantity: '',
-                      description: '',
-                      price: '',
-                    })
-                  }
-                >
-                  {' '}
-                  Reset{' '}
-                </button>
-                <button onClick={() => addProduct()} className="submit_warp">
-                  {' '}
-                  Submit{' '}
-                </button>
+              <div className="col-md-3">
+                <div className="product_info">
+                  <Label> Price </Label> <br />
+                  <TextBox
+                    value={productData.price}
+                    name="price"
+                    onChange={(e) => handleInput(e)}
+                    placeholder="Price"
+                  />
+                  <p className='error'> {validError ? 'Please enter product price' : ''} </p>
+                </div>
+              </div>
+              <div className="col-md-3">
+                <div className="button_warp">
+                  <button
+                    className="reset_wrap"
+                    onClick={() =>
+                      setProductData({
+                        name: '',
+                        category: '',
+                        quantity: '',
+                        description: '',
+                        price: '',
+                      })
+                    }
+                  >
+                    {' '}
+                    Reset{' '}
+                  </button>
+                  <button onClick={() => addProduct()} className="submit_warp">
+                    {' '}
+                    Submit{' '}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
     </>
   )
 }

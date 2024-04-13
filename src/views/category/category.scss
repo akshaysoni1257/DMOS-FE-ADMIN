@@ -1,12 +1,31 @@
-.button_warp {
-    margin-top: 27px;
-}
-.icon_wrap {
-    i {
-        cursor: pointer;
-        margin-right: 10px;
-        &:last-child {
-            margin-right: 0px;
+.category_detail {
+    .row {
+        margin-bottom: 25px;
+        .button_warp {
+            margin-top: 27px;
+        }
+    }
+    .category_grid {
+        max-width: 600px;
+        table {
+            thead {
+                th {
+                    &:nth-child(1),
+                    &:nth-child(3) {
+                        text-align: center;
+                    }
+                }
+            }
+            tbody {
+                tr {
+                    td {
+                        &:nth-child(1),
+                        &:nth-child(3) {
+                            text-align: center;
+                        }
+                    }
+                }
+            }
         }
     }
 }
