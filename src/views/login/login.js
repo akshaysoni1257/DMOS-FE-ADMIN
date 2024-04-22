@@ -58,7 +58,7 @@ const Login = () => {
             theme: "light",
           });
           setTimeout(() => {
-            navigate('/category');
+            navigate('/dashboard');
           },500)
         }
       })
