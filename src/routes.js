@@ -5,6 +5,7 @@ import GetAllQR from './views/qr/getAllQR'
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Category = React.lazy(() => import('./views/category/category'))
 const Products = React.lazy(() => import('./views/products/products'))
+const Order = React.lazy(() => import('./views/order/order'))
 const AddNewProduct = React.lazy(() => import('./views/products/addnewproduct/addnewproduct'))
 
 // Icons
@@ -18,6 +19,7 @@ const routes = [
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/category', name: 'Category', element: Category },
   { path: '/products', name: 'Products', element: Products },
+  { path: '/order', name: 'Order', element: Order },
   { path: '/qr/addqr', name: 'AddNewQR', element: AddQR },
   { path: '/qr', name: 'GetAllQR', element: GetAllQR },
   { path: '/products/addnewproduct', name: 'AddNewProduct', element: AddNewProduct },

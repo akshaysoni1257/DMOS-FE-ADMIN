@@ -1,15 +1,15 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
-import { cilSpeedometer, cilList, cilRestaurant, cilQrCode } from '@coreui/icons'
+import { cilSpeedometer, cilList, cilRestaurant, cilQrCode, cilDinner } from '@coreui/icons'
 import { CNavGroup, CNavItem } from '@coreui/react'
 
 const _nav = [
-  // {
-  //   component: CNavItem,
-  //   name: 'Dashboard',
-  //   to: '/dashboard',
-  //   icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-  // },
+  {
+    component: CNavItem,
+    name: 'Dashboard',
+    to: '/dashboard',
+    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
+  },
   {
     component: CNavItem,
     name: 'Category',
@@ -24,9 +24,15 @@ const _nav = [
   },
   {
     component: CNavItem,
+    name: 'Order',
+    to: '/order',
+    icon: <CIcon icon={cilDinner} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
     name: 'QR Code',
     to: '/qr',
-    icon: <CIcon icon={cilQrCode} customClassName="nav-icon" />,//QR icon here
+    icon: <CIcon icon={cilQrCode} customClassName="nav-icon" />,
   },
 
     // {

@@ -210,7 +210,7 @@ const Products = () => {
                     <th>Image</th>
                     <th>Product Name</th>
                     <th>Price</th>
-                    <th>quantity</th>
+                    <th>Quantity</th>
                     <th style={{width: "200px" }}>Action</th>
                   </tr>
                 </thead>
