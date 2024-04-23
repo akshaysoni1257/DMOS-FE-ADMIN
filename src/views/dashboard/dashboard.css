@@ -1,0 +1,15 @@
+.dashboard_boxes {
+    display: flex;
+  }
+  
+  .dashboard_box {
+    flex: 1;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-right: 10px; /* Adjust spacing between boxes */
+  }
+  
+  .dashboard_box:last-child {
+    margin-right: 0; /* Remove right margin for the last box */
+  }
+  
