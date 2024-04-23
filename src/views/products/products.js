@@ -122,6 +122,7 @@ const Products = () => {
 
   const addProduct = async (e) => {
     if (editButton) {
+      // e.preventDefault()
       try {
         const gettoken = localStorage.getItem('token')
         const response = await axios.put(
@@ -133,13 +134,13 @@ const Products = () => {
             },
           },
         )
-        if (response.data) {
+        if (response.status===200) {
+          getProducts()
+          toast.success("Products updated successfully")
           const updateData = products.map((prod) =>
             prod._id === editedData ? { ...prod, productData } : prod,
           )
           setProductData(updateData)
-          getProducts()
-          toast.success("Products updated successfully")
           setShow(false)
           setEditButton(false)
         }
@@ -173,7 +174,7 @@ const Products = () => {
     try {
       const gettoken = localStorage.getItem('token')
       const res = await axios.get(
-        `http://localhost:3000/admin/category/getCategories?page=1&limit=20`,
+        `http://localhost:3000/admin/category/getCategories`,
         {
           headers: {
             Authorization: `Bearer ${gettoken}`,
@@ -210,7 +211,7 @@ const Products = () => {
                     <th>Image</th>
                     <th>Product Name</th>
                     <th>Price</th>
-                    <th>quantity</th>
+                    <th>Quantity</th>
                     <th style={{width: "200px" }}>Action</th>
                   </tr>
                 </thead>
@@ -322,7 +323,7 @@ const Products = () => {
               <Button className='reset_wrap' onClick={handleClose}>
                 Cancel
               </Button>
-              <Button className='submit_warp' onClick={addProduct}>
+              <Button className='submit_warp' onClick={(e)=>addProduct(e)}>
                 {' '}
                 Save{' '}
               </Button>
