@@ -111,9 +111,7 @@ const AddNewProduct = () => {
                   <p className='error'> {validError ? 'Please enter your product name' : ''} </p>
                 </div>
               </div>
-
-            </div>
-            <div className="col-md-3">
+              <div className="col-md-3">
                 <div className="product_info">
                   <Label> Category </Label> <br />
                   <select name='category' onChange={(e=>handleInput(e))}>
@@ -123,24 +121,21 @@ const AddNewProduct = () => {
                   </select>
                   <p className='error'> {validError ? 'Please select your category' : ''} </p>
                 </div>
-                </div>
-            <div className="col-md-3">
-              <div className="product_info">
-                <Label> image </Label> <br />
-              <input type='text' value={image} onChange={handleImageChange} />
-                <p className='error'> {validError ? 'Please select your category' : ''} </p>
               </div>
-            </div>
-            <div className="col-md-3">
-              <div className="product_info">
-                <Label> Quantity </Label> <br />
-                <TextBox
-                  value={productData.quantity}
-                  name="quantity"
-                  onChange={(e) => handleInput(e)}
-                  placeholder="Price"
-                />
-                <p className='error'> {validError ? 'Please enter your quantity' : ''} </p>
+              <div className="col-md-3">
+                <div className="product_info">
+                  <Label> Image Link </Label> <br />
+                  <TextBox
+                   type='text'
+                   value={image}
+                   onChange={handleImageChange}
+                   placeholder="Image Link"
+                  />
+                  <p className='error'> {validError ? 'Please select your category' : ''} </p>
+
+                {/* <input type='text' value={image} onChange={handleImageChange} />
+                  <p className='error'> {validError ? 'Please select your category' : ''} </p> */}
+                </div>
               </div>
               <div className="col-md-3">
                 <div className="product_info">
@@ -149,59 +144,60 @@ const AddNewProduct = () => {
                     value={productData.quantity}
                     name="quantity"
                     onChange={(e) => handleInput(e)}
-                    placeholder="Price"
+                    placeholder="Quantity"
                   />
                   <p className='error'> {validError ? 'Please enter your quantity' : ''} </p>
                 </div>
               </div>
-              <div className="col-md-6">
-                <div className="product_info">
-                  <Label> Description </Label> <br />
-                  <TextBox
-                    value={productData.description}
-                    name="description"
-                    onChange={(e) => handleInput(e)}
-                    placeholder="description"
-                  />
-                  <p className='error'> {validError ? 'Please enter product description' : ''} </p>
+                <div className="col-md-3">
+                  <div className="product_info">
+                    <Label> Price </Label> <br />
+                    <TextBox
+                      value={productData.price}
+                      name="price"
+                      onChange={(e) => handleInput(e)}
+                      placeholder="Price"
+                    />
+                    <p className='error'> {validError ? 'Please enter product price' : ''} </p>
+                  </div>
                 </div>
-              </div>
-              <div className="col-md-3">
-                <div className="product_info">
-                  <Label> Price </Label> <br />
-                  <TextBox
-                    value={productData.price}
-                    name="price"
-                    onChange={(e) => handleInput(e)}
-                    placeholder="Price"
-                  />
-                  <p className='error'> {validError ? 'Please enter product price' : ''} </p>
+                <div className="col-md-6">
+                  <div className="product_info">
+                    <Label> Description </Label> <br />
+                    <TextBox
+                      value={productData.description}
+                      name="description"
+                      onChange={(e) => handleInput(e)}
+                      placeholder="Description"
+                    />
+                    <p className='error'> {validError ? 'Please enter product description' : ''} </p>
+                  </div>
                 </div>
-              </div>
-              <div className="col-md-3">
-                <div className="button_warp">
-                  <button
-                    className="reset_wrap"
-                    onClick={() =>
-                      setProductData({
-                        name: '',
-                        category: '',
-                        quantity: '',
-                        description: '',
-                        price: '',
-                      })
-                    }
-                  >
-                    {' '}
-                    Reset{' '}
-                  </button>
-                  <button onClick={() => addProduct()} className="submit_warp">
-                    {' '}
-                    Submit{' '}
-                  </button>
+                <div className="col-md-3">
+                  <div className="button_warp">
+                    <button
+                      className="reset_wrap"
+                      onClick={() =>
+                        setProductData({
+                          name: '',
+                          category: '',
+                          quantity: '',
+                          description: '',
+                          price: '',
+                        })
+                      }
+                    >
+                      {' '}
+                      Reset{' '}
+                    </button>
+                    <button onClick={() => addProduct()} className="submit_warp">
+                      {' '}
+                      Submit{' '}
+                    </button>
+                  </div>
                 </div>
-              </div>
             </div>
+            
           </div>
         </div>
       </div>

@@ -127,7 +127,7 @@ const Category = () => {
     try {
       const gettoken = localStorage.getItem('token')
       const res = await axios.get(
-        `http://localhost:3000/admin/category/getCategories?page=1&limit=20`,
+        `http://localhost:3000/admin/category/getCategories`,
         {
           headers: {
             Authorization: `Bearer ${gettoken}`,

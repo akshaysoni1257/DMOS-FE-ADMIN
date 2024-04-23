@@ -1,0 +1,23 @@
+
+.order_table {
+    table {
+        text-align: center;
+        margin-bottom: 0px;
+        thead {
+            th {
+                &:nth-child(3) {
+                    text-align: left;
+                }
+            }
+        }
+        tbody {
+            tr {
+                td {
+                    &:nth-child(3) {
+                        text-align: left;
+                    }
+                }
+            }
+        }
+    }
+}
