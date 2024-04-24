@@ -90,8 +90,8 @@ const Dashboard = () => {
 
 const DashboardBox = ({ label, value }) => (
   <div className="dashboard_box">
-    <Label style={{fontWeight: 'bold'}}>{label}</Label>
-    <Label style={{fontWeight: 'bold', marginLeft: '5 px'}}>{value}</Label>
+    <Label style={{fontWeight: 'bold', color:'black'}}>{label}</Label>
+    <Label style={{marginLeft: '5 px', display: 'flex', fontSize:'20px'}}>{value}</Label>
   </div>
 );
 
