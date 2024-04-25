@@ -10,6 +10,7 @@ import '../qr/allqr.scss'
 const GetAllQR = () => {
   const [qrData, setQRdata] = useState({ table_no: '' })
   const [allQRcode, setAllQRcode] = useState([])
+  const [validError, setValidError] = useState(null)
   const gettoken = localStorage.getItem('token')
   const handleChange = (e) => {
     setQRdata({ ...qrData, [e.target.name]: e.target.value })
@@ -32,6 +33,12 @@ const GetAllQR = () => {
   }, [])
 
   const handleClick = async (e) => {
+
+    if (!qrData.table_no) {
+      setValidError('Please enter your table number')
+      return
+    }
+
     e.preventDefault()
     const response = await axios.post(
       `http://localhost:3000/admin/tableRoutes/generateQR/${qrData.table_no}`,
@@ -64,7 +71,7 @@ const GetAllQR = () => {
                       onChange={handleChange}
                       placeholder="Add Table Number"
                     />
-                    {/* <p className="error"> {validError ? 'Please enter your category name' : ''} </p> */}
+                    <p className="error"> {validError ? 'Please enter table number' : ''} </p>
                   </div>
                 </div>
                 <div className="col-md-2">

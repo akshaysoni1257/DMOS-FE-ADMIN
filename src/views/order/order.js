@@ -107,6 +107,8 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../order/order.scss'
+import Table from 'react-bootstrap/Table'
 
 const Order = () => {
     const [items, setItems] = useState([]);
