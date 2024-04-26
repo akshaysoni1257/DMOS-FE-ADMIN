@@ -21,3 +21,32 @@
         }
     }
 }
+
+.table {
+    --bs-table-border-color: #fac564 !important;
+    thead {
+        tr {
+            th {
+                color: #000000;
+                font-size: 15px;
+                font-weight: 500;
+                background: #ffe6b8;
+            }
+        }
+    }
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+    --bs-table-bg-type: white !important;
+}
+
+.table-striped>tbody>tr:nth-of-type(even)>* {
+    --bs-table-color-type: var(--bs-table-striped-color);
+    --bs-table-bg-type: rgb(255 230 184 / 25%) ;
+}
+.table-hover>tbody>tr:hover>* {
+    --bs-table-bg-state: rgb(255 230 184 / 25%) !important;
+}
+.table>:not(caption)>*>* {
+    padding: 10px 15px !important;
+}
