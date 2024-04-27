@@ -3,17 +3,19 @@
     table {
         text-align: center;
         margin-bottom: 0px;
-        thead {
-            th {
-                &:nth-child(3) {
-                    text-align: left;
-                }
-            }
-        }
+        // thead {
+        //     th {
+        //         &:nth-child(3),
+        //         &:nth-child(2) {
+        //             text-align: left;
+        //         }
+        //     }
+        // }
         tbody {
             tr {
                 td {
-                    &:nth-child(3) {
+                    &:nth-child(3),
+                    &:nth-child(2) {
                         text-align: left;
                     }
                 }
@@ -22,31 +24,31 @@
     }
 }
 
-.table {
-    --bs-table-border-color: #fac564 !important;
-    thead {
-        tr {
-            th {
-                color: #000000;
-                font-size: 15px;
-                font-weight: 500;
-                background: #ffe6b8;
-            }
-        }
-    }
-}
+// .table {
+//     --bs-table-border-color: #fac564 !important;
+//     thead {
+//         tr {
+//             th {
+//                 color: #000000;
+//                 font-size: 15px;
+//                 font-weight: 500;
+//                 background: #ffe6b8;
+//             }
+//         }
+//     }
+// }
 
-.table-striped>tbody>tr:nth-of-type(odd)>* {
-    --bs-table-bg-type: white !important;
-}
+// .table-striped>tbody>tr:nth-of-type(odd)>* {
+//     --bs-table-bg-type: white !important;
+// }
 
-.table-striped>tbody>tr:nth-of-type(even)>* {
-    --bs-table-color-type: var(--bs-table-striped-color);
-    --bs-table-bg-type: rgb(255 230 184 / 25%) ;
-}
-.table-hover>tbody>tr:hover>* {
-    --bs-table-bg-state: rgb(255 230 184 / 25%) !important;
-}
-.table>:not(caption)>*>* {
-    padding: 10px 15px !important;
-}
+// .table-striped>tbody>tr:nth-of-type(even)>* {
+//     --bs-table-color-type: var(--bs-table-striped-color);
+//     --bs-table-bg-type: rgb(255 230 184 / 25%) ;
+// }
+// .table-hover>tbody>tr:hover>* {
+//     --bs-table-bg-state: rgb(255 230 184 / 25%) !important;
+// }
+// .table>:not(caption)>*>* {
+//     padding: 10px 15px !important;
+// }
